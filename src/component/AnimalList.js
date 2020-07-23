@@ -4,7 +4,7 @@ import AnimalCard from './AnimalCard'
 export default function AnimalList(props) {
     return (
         <div>
-            {this.props.animals.map((animal,index) => 
+            {props.animals.map((animal,index) => 
                 <AnimalCard 
                 name = {animal.name}
                 key = {animal._id} 
