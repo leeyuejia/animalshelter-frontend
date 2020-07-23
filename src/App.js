@@ -1,26 +1,37 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import AnimalList from './component/AnimalList'
 
-function App() {
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || "http://localhost:3002/animals";
+
+class App extends React.Component {
+  constructor(props) {
+    super(props)
+  
+    this.state = {
+       animals :[]
+    }
+    
+  }
+  
+  loadData = async () => {
+   const response = await fetch(BACKEND_URL)
+  const results = await response.json()
+  this.setState({animals :results})
+  }
+
+  componentDidMount() {
+    this.loadData()
+  }
+
+  render() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Animal Shelter</h1>
+      <AnimalList animals = {this.state.animals} />
     </div>
   );
 }
-
+}
 export default App;
